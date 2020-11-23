@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "422219243114",
+    "firebase_url": "https://flutter-chat-2eb50.firebaseio.com",
+    "project_id": "flutter-chat-2eb50",
+    "storage_bucket": "flutter-chat-2eb50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422219243114:android:549406aa4b854c657a7413",
+        "android_client_info": {
+          "package_name": "br.com.leonardograselalmeida.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422219243114-cuhblc41dlc4nqnhpts5rne9727k3j4k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBo47hzNSDWc43pyFUxoZygJUzb_B1dY5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422219243114-cuhblc41dlc4nqnhpts5rne9727k3j4k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
