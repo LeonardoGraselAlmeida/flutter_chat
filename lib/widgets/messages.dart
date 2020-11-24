@@ -34,6 +34,7 @@ class _MessagesState extends State<Messages> {
           itemBuilder: (ctx, i) => MessageBubble(
             chatDocs[i].get('text'),
             chatDocs[i].get('userName'),
+            chatDocs[i].get('imageUrl'),
             chatDocs[i].get('userId') == user.uid,
             key: ValueKey(chatDocs[i].documentID),
           ),

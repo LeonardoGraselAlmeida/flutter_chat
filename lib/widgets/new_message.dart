@@ -23,7 +23,8 @@ class _NewMessageState extends State<NewMessage> {
         'text': _enteredMessage,
         'createAt': Timestamp.now(),
         'userId': user.uid,
-        'userName': userData.get('name')
+        'userName': userData.get('name'),
+        'imageUrl': userData.get('imageUrl'),
       });
       _controller.clear();
     } on FirebaseException catch (err) {

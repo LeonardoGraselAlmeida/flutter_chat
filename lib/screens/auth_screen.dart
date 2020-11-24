@@ -2,6 +2,7 @@ import 'package:FlutterChat/models/auth_data.dart';
 import 'package:FlutterChat/widgets/auth_form.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -28,7 +29,20 @@ class _AuthScreenState extends State<AuthScreen> {
         userCredential = await _auth.createUserWithEmailAndPassword(
             email: authData.email.trim(), password: authData.password);
 
-        final userData = {'name': authData.name, 'email': authData.email};
+        final ref = FirebaseStorage.instance
+            .ref()
+            .child('user_images')
+            .child(userCredential.user.uid + '.jpg');
+
+        final imageStorage = await ref.putFile(authData.image);
+        final url = await imageStorage.ref.getDownloadURL();
+
+        final userData = {
+          'name': authData.name,
+          'email': authData.email,
+          'imageUrl': url
+        };
+
         await FirebaseFirestore.instance
             .collection('users')
             .doc(userCredential.user.uid)
@@ -57,27 +71,29 @@ class _AuthScreenState extends State<AuthScreen> {
       key: _scaffoldKey,
       backgroundColor: Theme.of(context).backgroundColor,
       body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                AuthForm(_handleSubmit),
-                if (_isLoading)
-                  Positioned.fill(
-                    child: Container(
-                      margin: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Color.fromRGBO(0, 0, 0, 0.5),
-                      ),
-                      child: Center(
-                        child: CircularProgressIndicator(),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  AuthForm(_handleSubmit),
+                  if (_isLoading)
+                    Positioned.fill(
+                      child: Container(
+                        margin: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(0, 0, 0, 0.5),
+                        ),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
                       ),
                     ),
-                  ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
